@@ -15,10 +15,11 @@ const animateGradient = keyframes`
 `;
 
 const Container = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   justify-content: center;
+  justify-items: center;
   align-items: center;
-  height: 100vh;
   background: linear-gradient(
     -135deg,
     #273437, #220f4b, #661fff, #00C9FF, #ceff1a ,#edffa9
@@ -27,7 +28,7 @@ const Container = styled.div`
   animation: ${animateGradient} 24s linear infinite;
 
   @media (max-width: 768px) {
-    flex-direction: column;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 `;
 
@@ -45,20 +46,23 @@ const RightColumn = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.85);
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  max-width: 400px;
+  width: 70%;
 
   @media (max-width: 768px) {
     width: 80%;
+    padding: 8px
   }
 
   @media (max-width: 480px) {
     width: 90%;
+    padding: 4px
   };`
 
 const LoginForm = styled.form`
@@ -85,11 +89,23 @@ cursor: pointer;
 `;
 
 const Image = styled.img`
-width: 50%;
-height: 50%;
+width: 100%;
+height: 0%;
 object-fit: cover;
 object-position: center;
 `;
+
+const Title = styled.h1`
+  font-size: 2rem;
+  text-align: center;
+  color: #000;
+`;
+
+const Text = styled.h4`
+font-size: 1rem;
+color: #000;
+margin-bottom: 0px;
+`
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -97,7 +113,6 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Implement your login logic here
   };
 
   return (
@@ -106,20 +121,29 @@ const Login = () => {
         <Image src={logoImage} alt="Login" />
       </LeftColumn>
       <RightColumn>
+        <Title>Login</Title>
         <LoginForm onSubmit={handleLogin}>
-          <Input
-            type="text"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button type="submit">Login</Button>
+          <div>
+            <Text>Login ID</Text>
+            <Input
+              type="text"
+              placeholder="Enter Login ID"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <Text>Password</Text>
+            <Input
+              type="password"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div>
+            <Button type="submit">Login</Button>
+          </div>
         </LoginForm>
       </RightColumn>
     </Container>
